@@ -36,7 +36,7 @@ This project was built as part of the **Udacity Full Stack JavaScript Developer 
 
 ### 1. Clone the repository
 
-```bash
+```run
 git clone https://github.com/<your-username>/storefront-backend.git
 cd storefront-backend
 ```
@@ -55,7 +55,7 @@ yarn install
 
 Log into PostgreSQL:
 
-```bash
+```run
 psql -U postgres
 ```
 
@@ -65,7 +65,6 @@ Then create the development and test databases:
 CREATE DATABASE store_dev;
 CREATE DATABASE store_test;
 ```
-
 
 ### 2. Run database migrations
 
@@ -128,7 +127,9 @@ To run all model and endpoint tests:
 
 ```run
 yarn test
+```
 
+---
 
 ## 📂 Project Structure
 
@@ -161,12 +162,10 @@ storefront-backend/
 
 ---
 
-
 ## 🧑‍🎓 Author
 
 **Sama Khraim**
 📧 [samakhraim12@gmail.com](mailto:samakhraim12@gmail.com)
 Full Stack JavaScript Developer Nanodegree — Udacity
 
-
-
+---
