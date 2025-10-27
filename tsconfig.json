@@ -1,0 +1,36 @@
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    /* ========= File Layout ========= */
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    /* ========= Module and Target ========= */
+    "target": "ES2020",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+
+    /* ========= Type Checking ========= */
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+
+    /* ========= Output Options ========= */
+    "sourceMap": true,
+    "declaration": false,
+    "removeComments": true,
+
+    /* ========= Node Environment ========= */
+    "types": ["node", "jasmine"],
+
+    /* ========= Experimental ========= */
+    "isolatedModules": false
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}
