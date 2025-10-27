@@ -10,7 +10,7 @@ const index = async (_req: Request, res: Response) => {
 }
 
 const show = async (req: Request, res: Response) => {
-  const product = await store.show(req.params.id)
+  const product = await store.show(req.params.id!)
   res.json(product)
 }
 
@@ -20,12 +20,12 @@ const create = async (req: Request, res: Response) => {
 }
 
 const update = async (req: Request, res: Response) => {
-  const product = await store.update(req.params.id, req.body)
+  const product = await store.update(req.params.id!, req.body)
   res.json(product)
 }
 
 const destroy = async (req: Request, res: Response) => {
-  const product = await store.delete(req.params.id)
+  const product = await store.delete(req.params.id!)
   res.json(product)
 }
 

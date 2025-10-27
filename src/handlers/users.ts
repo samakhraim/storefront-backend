@@ -18,7 +18,7 @@ const index = async (_req: Request, res: Response) => {
 //  GET /users/:id - show one user (protected)
 const show = async (req: Request, res: Response) => {
   try {
-    const user = await store.show(req.params.id)
+    const user = await store.show(req.params.id!)
     res.json(user)
   } catch (err) {
     res.status(400).json(err)
@@ -39,7 +39,7 @@ const create = async (req: Request, res: Response) => {
 // PUT /users/:id - update user (protected)
 const update = async (req: Request, res: Response) => {
   try {
-    const user = await store.update(req.params.id, req.body)
+    const user = await store.update(req.params.id!, req.body)
     res.json(user)
   } catch (err) {
     res.status(400).json(err)
@@ -49,7 +49,7 @@ const update = async (req: Request, res: Response) => {
 //  DELETE /users/:id - delete user (protected)
 const destroy = async (req: Request, res: Response) => {
   try {
-    const user = await store.delete(req.params.id)
+    const user = await store.delete(req.params.id!)
     res.json(user)
   } catch (err) {
     res.status(400).json(err)

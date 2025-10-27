@@ -10,7 +10,7 @@ const addProduct = async (req: Request, res: Response) => {
 }
 
 const productsByOrder = async (req: Request, res: Response) => {
-  const result = await store.productsByOrder(req.params.orderId)
+  const result = await store.productsByOrder(req.params.orderId!)
   res.json(result)
 }
 

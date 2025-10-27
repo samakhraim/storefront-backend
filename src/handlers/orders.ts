@@ -25,7 +25,7 @@ const updatedOrder = await store.update(req.params.id!, req.body.status)
 }
 
 const destroy = async (req: Request, res: Response) => {
-  const deleted = await store.delete(req.params.id)
+  const deleted = await store.delete(req.params.id!)
   res.json(deleted)
 }
 
