@@ -3,12 +3,15 @@ import { ProductStore } from '../models/product'
 const store = new ProductStore()
 
 describe('Product Model', () => {
+  let createdProductId: string
+
   it('should have an index method', () => {
     expect(store.index).toBeDefined()
   })
 
   it('create method should add a product', async () => {
     const result = await store.create({ name: 'Book', price: 15 })
+    createdProductId = result.id!.toString()
     expect(result.name).toBe('Book')
   })
 
@@ -18,12 +21,12 @@ describe('Product Model', () => {
   })
 
   it('update method should modify a product', async () => {
-    const result = await store.update('1', { name: 'Updated Book', price: 20 })
+    const result = await store.update(createdProductId, { name: 'Updated Book', price: 20 })
     expect(result.name).toBe('Updated Book')
   })
 
   it('delete method should remove the product', async () => {
-    const result = await store.delete('1')
-    expect(result.id).toBe(1)
+    const result = await store.delete(createdProductId)
+    expect(result.id).toBe(Number(createdProductId))
   })
 })

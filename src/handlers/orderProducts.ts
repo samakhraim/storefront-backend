@@ -5,13 +5,21 @@ import { verifyAuthToken } from '../middleware/auth'
 const store = new OrderProductStore()
 
 const addProduct = async (req: Request, res: Response) => {
-  const orderProduct = await store.addProduct(req.body)
-  res.json(orderProduct)
+  try {
+    const orderProduct = await store.addProduct(req.body)
+    res.json(orderProduct)
+  } catch (err) {
+    res.status(400).json({ error: (err as Error).message })
+  }
 }
 
 const productsByOrder = async (req: Request, res: Response) => {
-  const result = await store.productsByOrder(req.params.orderId!)
-  res.json(result)
+  try {
+    const result = await store.productsByOrder(req.params.orderId!)
+    res.json(result)
+  } catch (err) {
+    res.status(400).json({ error: (err as Error).message })
+  }
 }
 
 const orderProductRoutes = (app: express.Application) => {

@@ -5,28 +5,48 @@ import { verifyAuthToken } from '../middleware/auth'
 const store = new OrderStore()
 
 const index = async (_req: Request, res: Response) => {
-  const orders = await store.index()
-  res.json(orders)
+  try {
+    const orders = await store.index()
+    res.json(orders)
+  } catch (err) {
+    res.status(400).json({ error: (err as Error).message })
+  }
 }
 
 const show = async (req: Request, res: Response) => {
-const order = await store.show(req.params.id!)
-  res.json(order)
+  try {
+    const order = await store.show(req.params.id!)
+    res.json(order)
+  } catch (err) {
+    res.status(400).json({ error: (err as Error).message })
+  }
 }
 
 const create = async (req: Request, res: Response) => {
-  const newOrder = await store.create(req.body)
-  res.json(newOrder)
+  try {
+    const newOrder = await store.create(req.body)
+    res.json(newOrder)
+  } catch (err) {
+    res.status(400).json({ error: (err as Error).message })
+  }
 }
 
 const update = async (req: Request, res: Response) => {
-const updatedOrder = await store.update(req.params.id!, req.body.status)
-  res.json(updatedOrder)
+  try {
+    const updatedOrder = await store.update(req.params.id!, req.body.status)
+    res.json(updatedOrder)
+  } catch (err) {
+    res.status(400).json({ error: (err as Error).message })
+  }
 }
 
 const destroy = async (req: Request, res: Response) => {
-  const deleted = await store.delete(req.params.id!)
-  res.json(deleted)
+  try {
+    const deleted = await store.delete(req.params.id!)
+    res.json(deleted)
+  } catch (err) {
+    res.status(400).json({ error: (err as Error).message })
+  }
 }
 
 const ordersRoutes = (app: express.Application) => {
