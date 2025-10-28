@@ -141,7 +141,7 @@ yarn test
 
 > ✅ The test suite covers **all API routes**, **database models**, and **authentication flow**.
 > A successful test run will output:
-> `33 specs, 0 failures`
+> **`33 specs, 0 failures`**
 
 ---
 
@@ -211,7 +211,7 @@ storefront-backend/
 ├── package.json
 ├── tsconfig.json
 ├── .env                   # Environment variables (ignored by Git)
-├── REQUIREMENTS.md         # API requirements file
+├── REQUIREMENTS.md
 └── README.md
 ```
 
@@ -244,5 +244,5 @@ storefront-backend/
 Full Stack JavaScript Developer Nanodegree — Udacity
 
 ---
-* file (the one Udacity asks for listing all API routes, methods, and expected responses)? It’s required for the final project submission and complements this README.
-```
+
+
