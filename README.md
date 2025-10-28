@@ -1,41 +1,35 @@
-Absolutely 💪 — here’s your **final, submission-ready `README.md`**, fully aligned with the **Udacity Full Stack JavaScript Nanodegree rubric** and directly addressing your reviewer’s feedback.
-It includes all setup instructions, database notes, environment configuration, endpoint tables, testing coverage, and reviewer notes.
-
----
 
 ````md
 # 🛒 Storefront Backend API
 
-A RESTful **backend API for an online store**, built with **Node.js**, **Express**, **TypeScript**, and **PostgreSQL**.  
-It allows users to register, authenticate, create products, place orders, and manage cart items securely.
+A RESTful **backend API for an online store**, built using **Node.js**, **Express**, **TypeScript**, and **PostgreSQL**.  
+It enables users to register, authenticate, manage products, create orders, and handle cart operations securely.
 
-This project was built as part of the **Udacity Full Stack JavaScript Developer Nanodegree**.
+This project was developed as part of the **Udacity Full Stack JavaScript Developer Nanodegree**.
 
 ---
 
 ## 🚀 Features
 
 - Full CRUD operations for **Users**, **Products**, and **Orders**
-- Secure **JWT authentication**
-- Password hashing using **bcrypt**
-- PostgreSQL relational database with foreign keys
-- Database migrations with **db-migrate**
-- Tested using **Jasmine** and **Supertest**
-- Built entirely in **TypeScript**
+- Secure authentication using **JWT (JSON Web Token)**
+- Password hashing and salting with **bcrypt**
+- PostgreSQL relational database with foreign key relationships
+- Database version control using **db-migrate**
+- Comprehensive **unit and integration testing** with Jasmine & Supertest
+- Written in **TypeScript** for strong typing and maintainability
 
 ---
 
 ## 🧰 Technologies Used
 
-- **Node.js**
-- **Express.js**
+- **Node.js** & **Express.js**
 - **TypeScript**
 - **PostgreSQL**
-- **db-migrate** (for migrations)
-- **bcrypt** (password hashing)
+- **db-migrate** (migrations)
+- **bcrypt** (password security)
 - **jsonwebtoken (JWT)** (authentication)
-- **Jasmine** (unit testing)
-- **Supertest** (endpoint testing)
+- **Jasmine** & **Supertest** (testing framework)
 
 ---
 
@@ -58,7 +52,7 @@ yarn install
 
 ## 🔑 Environment Variables
 
-Create a `.env` file in the project root with the following contents:
+Create a `.env` file in the project root with the following configuration:
 
 ```env
 POSTGRES_HOST=127.0.0.1
@@ -72,7 +66,8 @@ TOKEN_SECRET=supersecretjwt
 ENV=dev
 ```
 
-> ⚠️ Important: Never commit your `.env` file to GitHub.
+> ⚠️ **Important:** Never commit your `.env` file to GitHub.
+> It contains sensitive database credentials and secret keys.
 
 ---
 
@@ -86,7 +81,7 @@ Log into PostgreSQL:
 psql -U postgres
 ```
 
-Then create your development and test databases:
+Then create the development and test databases:
 
 ```sql
 CREATE DATABASE store_dev;
@@ -101,49 +96,52 @@ To build all tables:
 npx db-migrate up
 ```
 
-To reset and rebuild:
+To reset and rebuild the database:
 
 ```bash
 npx db-migrate reset
 npx db-migrate up
 ```
 
-> **Note:** When running tests, the application automatically uses the `store_test` database.
-> Make sure both `store_dev` and `store_test` are created and migrated before running tests.
+> 💡 When running tests, the app automatically connects to the **`store_test`** database.
+> Make sure both databases are created and migrated before running tests.
 
 ---
 
 ## ▶️ Running the Application
 
-1. Start the server in development mode:
+Start the app in development mode (auto-reload):
 
-   ```bash
-   yarn watch
-   ```
-2. Or build and run the compiled version:
+```bash
+yarn watch
+```
 
-   ```bash
-   yarn build
-   yarn start
-   ```
-3. Visit:
+Or build and run the production version:
 
-   ```
-   http://localhost:3000
-   ```
+```bash
+yarn build
+yarn start
+```
+
+Then visit the API in your browser or Postman:
+
+```
+http://localhost:3000
+```
 
 ---
 
 ## 🧪 Testing
 
-To run all model and endpoint tests:
+To run all tests (models + endpoints):
 
 ```bash
 yarn test
 ```
 
-> The test suite includes **model unit tests** and **endpoint integration tests** covering all CRUD operations for users, products, orders, and order-products.
-> You should see `33 specs, 0 failures` when everything is working correctly.
+> ✅ The test suite covers **all API routes**, **database models**, and **authentication flow**.
+> A successful test run will output:
+> `33 specs, 0 failures`
 
 ---
 
@@ -151,14 +149,14 @@ yarn test
 
 ### 🔹 Users
 
-| Method | Endpoint              | Description                      | Protected |
-| ------ | --------------------- | -------------------------------- | --------- |
-| POST   | `/users`              | Create a new user                | ❌         |
-| POST   | `/users/authenticate` | Authenticate user and return JWT | ❌         |
-| GET    | `/users`              | Get all users                    | ✅         |
-| GET    | `/users/:id`          | Get user by ID                   | ✅         |
-| PUT    | `/users/:id`          | Update user info                 | ✅         |
-| DELETE | `/users/:id`          | Delete a user                    | ✅         |
+| Method | Endpoint              | Description                     | Protected |
+| ------ | --------------------- | ------------------------------- | --------- |
+| POST   | `/users`              | Create a new user               | ❌         |
+| POST   | `/users/authenticate` | Authenticate user and get token | ❌         |
+| GET    | `/users`              | Get all users                   | ✅         |
+| GET    | `/users/:id`          | Get user by ID                  | ✅         |
+| PUT    | `/users/:id`          | Update user info                | ✅         |
+| DELETE | `/users/:id`          | Delete a user                   | ✅         |
 
 ---
 
@@ -186,7 +184,7 @@ yarn test
 
 ---
 
-### 🔹 Order Products
+### 🔹 Order Products (Cart Items)
 
 | Method | Endpoint                    | Description                  | Protected |
 | ------ | --------------------------- | ---------------------------- | --------- |
@@ -201,19 +199,19 @@ yarn test
 storefront-backend/
 │
 ├── src/
-│   ├── server.ts
-│   ├── database.ts
-│   ├── models/
-│   ├── handlers/
-│   ├── middleware/
-│   └── tests/
+│   ├── server.ts          # Express server setup
+│   ├── database.ts        # PostgreSQL connection
+│   ├── models/            # Data models (User, Product, Order)
+│   ├── handlers/          # Route handlers (controllers)
+│   ├── middleware/        # Authentication middleware
+│   └── tests/             # Unit & integration tests
 │
-├── migrations/
-├── database.json
+├── migrations/            # Database migration scripts
+├── database.json          # Migration configuration
 ├── package.json
 ├── tsconfig.json
-├── .env (ignored)
-├── REQUIREMENTS.md
+├── .env                   # Environment variables (ignored by Git)
+├── REQUIREMENTS.md         # API requirements file
 └── README.md
 ```
 
@@ -228,14 +226,14 @@ storefront-backend/
 
 ---
 
-## 🧑‍💻 Scripts
+## 🧑‍💻 Available Scripts
 
-| Command      | Description                           |
-| ------------ | ------------------------------------- |
-| `yarn watch` | Run server in dev mode (auto rebuild) |
-| `yarn build` | Compile TypeScript to JavaScript      |
-| `yarn start` | Start the production server           |
-| `yarn test`  | Run all tests with Jasmine            |
+| Command      | Description                        |
+| ------------ | ---------------------------------- |
+| `yarn watch` | Run the server in development mode |
+| `yarn build` | Compile TypeScript into JavaScript |
+| `yarn start` | Start the production server        |
+| `yarn test`  | Run all tests with Jasmine         |
 
 ---
 
@@ -246,18 +244,5 @@ storefront-backend/
 Full Stack JavaScript Developer Nanodegree — Udacity
 
 ---
-
-## 🧑‍🏫 Reviewer Note
-
-> ✅ All async handler methods are enclosed within `try/catch` blocks.
-> ✅ All API endpoints are tested (models + endpoints).
-> ✅ Database migrations and environment setup verified.
-> Please run:
->
-> ```bash
-> yarn test
-> ```
->
-> to confirm all **33 tests pass successfully**.
-
----
+* file (the one Udacity asks for listing all API routes, methods, and expected responses)? It’s required for the final project submission and complements this README.
+```
