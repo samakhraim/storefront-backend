@@ -1,1 +1,13 @@
-<p>checkout works!</p>
+<h2>Checkout</h2>
+<form (ngSubmit)="onSubmit()">
+  <label>Name</label>
+  <input [(ngModel)]="name" name="name" required />
+
+  <label>Address</label>
+  <input [(ngModel)]="address" name="address" required />
+
+  <label>Card Number</label>
+  <input [(ngModel)]="cardNumber" name="cardNumber" required />
+
+  <button type="submit">Place Order</button>
+</form>

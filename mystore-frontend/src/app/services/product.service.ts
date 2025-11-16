@@ -7,17 +7,14 @@ import { Product } from '../models/product.model';
   providedIn: 'root'
 })
 export class ProductService {
-  // ✅ Replace with your actual backend endpoint
-  private apiUrl = 'http://localhost:3000/products';
+  private apiUrl = 'http://localhost:3000/products'; // backend URL
 
   constructor(private http: HttpClient) {}
 
-  // Fetch all products
   getAllProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.apiUrl);
   }
 
-  // Fetch a single product by ID
   getProductById(id: number): Observable<Product> {
     return this.http.get<Product>(`${this.apiUrl}/${id}`);
   }

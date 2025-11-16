@@ -9,14 +9,24 @@ import { Product } from '../../models/product.model';
 })
 export class CartComponent {
   items: Product[] = [];
+  total = 0;
 
   constructor(private cartService: CartService) {
+    this.loadCart();
+  }
+
+  loadCart(): void {
     this.items = this.cartService.getItems();
+    this.total = this.cartService.getTotal();
+  }
+
+  removeItem(id: number): void {
+    this.cartService.removeItem(id);
+    this.loadCart();
   }
 
   clearCart(): void {
     this.cartService.clearCart();
-    this.items = [];
-    alert('Cart cleared!');
+    this.loadCart();
   }
 }

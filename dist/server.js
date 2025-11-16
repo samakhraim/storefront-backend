@@ -4,22 +4,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
 const body_parser_1 = __importDefault(require("body-parser"));
-const users_1 = __importDefault(require("./handlers/users"));
 const products_1 = __importDefault(require("./handlers/products"));
-const orders_1 = __importDefault(require("./handlers/orders"));
-const orderProducts_1 = __importDefault(require("./handlers/orderProducts"));
 const app = (0, express_1.default)();
+const port = 3000;
+app.use((0, cors_1.default)({
+    origin: "http://localhost:4200",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+}));
 app.use(body_parser_1.default.json());
-app.get('/', (req, res) => {
-    res.send('Storefront backend is running!');
-});
-(0, users_1.default)(app);
 (0, products_1.default)(app);
-(0, orders_1.default)(app);
-(0, orderProducts_1.default)(app);
-app.listen(3000, () => {
-    console.log('Server running on port 3000');
+app.get("/", (_req, res) => {
+    res.send("Server running...");
+});
+app.listen(port, () => {
+    console.log(`✅ Server running on http://localhost:${port}`);
 });
 exports.default = app;
 //# sourceMappingURL=server.js.map

@@ -15,8 +15,14 @@ export class CheckoutComponent {
   constructor(private cartService: CartService, private router: Router) {}
 
   onSubmit(): void {
-    alert('Order placed successfully!');
+    if (!this.name || !this.address || !this.cardNumber) {
+      alert('Please fill in all fields.');
+      return;
+    }
+
     this.cartService.clearCart();
-    this.router.navigate(['/confirmation']);
+    this.router.navigate(['/confirmation'], {
+      queryParams: { name: this.name }
+    });
   }
 }

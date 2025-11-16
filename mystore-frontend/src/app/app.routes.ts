@@ -10,5 +10,5 @@ export const routes: Routes = [
   { path: 'products/:id', component: ProductDetailComponent },
   { path: 'cart', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },
-  { path: 'confirmation', component: ConfirmationComponent },
+  { path: 'confirmation', component: ConfirmationComponent }
 ];
