@@ -1,39 +1,29 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000';
+
+  private apiUrl = 'http://localhost:3000/auth';
 
   constructor(private http: HttpClient) {}
 
-  signup(data: any) {
-    return this.http.post(`${this.apiUrl}/signup`, data).pipe(
-      tap((res: any) => {
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('user', JSON.stringify(res.user));
-      })
-    );
+  login(credentials: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/login`, credentials);
   }
 
-  login(data: any) {
-    return this.http.post(`${this.apiUrl}/login`, data).pipe(
-      tap((res: any) => {
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('user', JSON.stringify(res.user));
-      })
-    );
+  signup(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/signup`, data);
   }
 
-  logout() {
+  logout(): void {
     localStorage.removeItem('token');
-    localStorage.removeItem('user');
   }
 
-  isLoggedIn() {
+  isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
 }

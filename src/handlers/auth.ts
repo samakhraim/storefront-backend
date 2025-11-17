@@ -1,75 +1,60 @@
-import express, { Request, Response } from 'express';
-import bcrypt from 'bcrypt';
+import express from 'express';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 import client from '../database';
 
-const pepper = process.env.BCRYPT_PASSWORD || '';
-const saltRounds = parseInt(process.env.SALT_ROUNDS || '10');
-const tokenSecret = process.env.TOKEN_SECRET || 'mysecret';
+const router = express.Router();
+const SECRET = process.env.TOKEN_SECRET as string;
 
-const authRoutes = (app: express.Application) => {
-  
-  // SIGNUP
-  app.post('/signup', async (req: Request, res: Response) => {
-    try {
-      const { first_name, last_name, email, password } = req.body;
+// SIGNUP
+router.post('/signup', async (req, res) => {
+  try {
+    const conn = await client.connect();
 
-      const hash = await bcrypt.hash(password + pepper, saltRounds);
+    const { first_name, last_name, email, password } = req.body;
+    const hash = await bcrypt.hash(password, 10);
 
-      const sql = `
-        INSERT INTO users (first_name, last_name, email, password_digest)
-        VALUES ($1, $2, $3, $4)
-        RETURNING id, first_name, last_name, email;
-      `;
+    const sql = `
+      INSERT INTO users (first_name, last_name, email, password_digest)
+      VALUES ($1, $2, $3, $4)
+      RETURNING id, email;
+    `;
 
-      const conn = await client.connect();
-      const result = await conn.query(sql, [
-        first_name,
-        last_name,
-        email,
-        hash
-      ]);
-      conn.release();
+    const result = await conn.query(sql, [first_name, last_name, email, hash]);
+    conn.release();
 
-      const token = jwt.sign(result.rows[0], tokenSecret);
+    res.json(result.rows[0]);
 
-      res.json({ token, user: result.rows[0] });
+  } catch (err) {
+    res.status(500).json({ error: 'Signup error' });
+  }
+});
 
-    } catch (err) {
-      console.error(err);
-      res.status(400).json({ error: 'Signup failed' });
-    }
-  });
+// LOGIN
+router.post('/login', async (req, res) => {
+  try {
+    const conn = await client.connect();
 
-  // LOGIN
-  app.post('/login', async (req: Request, res: Response) => {
-    try {
-      const { email, password } = req.body;
+    const { email, password } = req.body;
 
-      const conn = await client.connect();
-      const userResult = await conn.query(`SELECT * FROM users WHERE email=$1`, [
-        email
-      ]);
-      conn.release();
+    const sql = `SELECT * FROM users WHERE email = $1`;
+    const result = await conn.query(sql, [email]);
+    conn.release();
 
-      const user = userResult.rows[0];
-      if (!user) return res.status(401).json({ error: 'Invalid credentials' });
+    if (result.rows.length === 0) return res.status(400).json({ error: 'User not found' });
 
-      const valid = await bcrypt.compare(password + pepper, user.password_digest);
-      if (!valid) return res.status(401).json({ error: 'Invalid credentials' });
+    const user = result.rows[0];
 
-      delete user.password_digest;
+    const valid = await bcrypt.compare(password, user.password_digest);
+    if (!valid) return res.status(401).json({ error: 'Invalid password' });
 
-      const token = jwt.sign(user, tokenSecret);
+    const token = jwt.sign({ id: user.id }, SECRET);
 
-      res.json({ token, user });
+    res.json({ token });
 
-    } catch (err) {
-      console.error(err);
-      res.status(400).json({ error: 'Login failed' });
-    }
-  });
+  } catch (err) {
+    res.status(500).json({ error: 'Login error' });
+  }
+});
 
-};
-
-export default authRoutes;
+export default router;

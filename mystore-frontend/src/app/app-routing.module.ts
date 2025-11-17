@@ -7,17 +7,21 @@ import { ConfirmationComponent } from './components/confirmation/confirmation.co
 import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
 
-
+import { authGuard } from './guards/auth.guard';
 
 
 
 
 export const routes: Routes = [
-  { path: '', component: ProductListComponent },
-  { path: 'products/:id', component: ProductDetailComponent },
-  { path: 'cart', component: CartComponent },
-  { path: 'checkout', component: CheckoutComponent },
-  { path: 'confirmation', component: ConfirmationComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+
   { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent }
+  { path: 'signup', component: SignupComponent },
+
+  // Protected Routes
+  { path: 'products', component: ProductListComponent, canActivate: [authGuard] },
+  { path: 'products/:id', component: ProductDetailComponent, canActivate: [authGuard] },
+  { path: 'cart', component: CartComponent, canActivate: [authGuard] },
+  { path: 'checkout', component: CheckoutComponent, canActivate: [authGuard] },
+  { path: 'confirmation', component: ConfirmationComponent, canActivate: [authGuard] },
 ];

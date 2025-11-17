@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.css']
 })
 export class SignupComponent {
 
@@ -16,7 +17,10 @@ export class SignupComponent {
 
   onSubmit(form: any) {
     this.auth.signup(form.value).subscribe({
-      next: () => this.router.navigate(['/']),
+      next: () => {
+        alert('Signup successful! Please log in.');
+        this.router.navigate(['/login']);
+      },
       error: () => alert('Signup failed')
     });
   }

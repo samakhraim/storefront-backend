@@ -1,14 +1,35 @@
-<p>signup works!</p>
-<section class="auth-section">
-  <h2>Sign Up</h2>
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Create Account</h2>
 
-  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <form #signupForm="ngForm" (ngSubmit)="onSubmit(signupForm)" class="auth-form">
 
-    <input name="first_name" ngModel required placeholder="First Name" />
-    <input name="last_name" ngModel required placeholder="Last Name" />
-    <input type="email" name="email" ngModel required placeholder="Email" />
-    <input type="password" name="password" ngModel required placeholder="Password" />
+      <div class="form-group">
+        <label>First Name</label>
+        <input name="first_name" ngModel required />
+      </div>
 
-    <button>Create Account</button>
-  </form>
-</section>
+      <div class="form-group">
+        <label>Last Name</label>
+        <input name="last_name" ngModel required />
+      </div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input name="email" ngModel type="email" required />
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input name="password" ngModel type="password" required />
+      </div>
+
+      <button type="submit" class="auth-btn">Sign Up</button>
+    </form>
+
+    <p class="redirect-text">
+      Already have an account?
+      <a routerLink="/login" class="redirect-link">Login</a>
+    </p>
+  </div>
+</div>
