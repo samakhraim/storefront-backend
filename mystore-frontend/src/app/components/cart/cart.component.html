@@ -1,17 +1,35 @@
-<h2>Your Cart</h2>
+<div class="cart-wrapper">
+  <div class="cart-container">
+    <h2 class="cart-title">🛒 Your Cart</h2>
 
-<div *ngIf="items.length === 0">Your cart is empty.</div>
+    <!-- Empty cart -->
+    <div *ngIf="items.length === 0" class="empty-cart">
+      <p>Your cart is empty 😢</p>
+      <a routerLink="/" class="browse-btn">Browse Products</a>
+    </div>
 
-<ul *ngIf="items.length > 0">
-  <li *ngFor="let item of items">
-    {{ item.name }} - \${{ item.price }}
-    <button (click)="removeItem(item.id)">Remove</button>
-  </li>
-</ul>
+    <!-- Cart with items -->
+    <div *ngIf="items.length > 0" class="cart-content">
+      <div class="cart-item" *ngFor="let item of items">
+        <div class="cart-info">
+          <img src="assets/images/default-product.jpg" alt="Product" class="cart-image" />
+          <div class="cart-text">
+            <h3>{{ item.name }}</h3>
+            <p>${{ item.price }}</p>
+          </div>
+        </div>
+        <button class="remove-btn" (click)="removeItem(item.id)">Remove</button>
+      </div>
 
-<p *ngIf="items.length > 0">
-  <strong>Total:</strong> \${{ total }}
-</p>
+      <div class="cart-total">
+        <h3>Total:</h3>
+        <span>${{ total }}</span>
+      </div>
 
-<button *ngIf="items.length > 0" (click)="clearCart()">Clear Cart</button>
-<a routerLink="/checkout" *ngIf="items.length > 0">Proceed to Checkout</a>
+      <div class="cart-actions">
+        <button class="clear-btn" (click)="clearCart()">🗑️ Clear Cart</button>
+        <a routerLink="/checkout" class="checkout-btn">Proceed to Checkout →</a>
+      </div>
+    </div>
+  </div>
+</div>

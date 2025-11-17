@@ -1,13 +1,31 @@
-<h2>Checkout</h2>
-<form (ngSubmit)="onSubmit()">
-  <label>Name</label>
-  <input [(ngModel)]="name" name="name" required />
+<section class="checkout-section">
+  <h2>Checkout</h2>
 
-  <label>Address</label>
-  <input [(ngModel)]="address" name="address" required />
+  <form #checkoutForm="ngForm" (ngSubmit)="onSubmit(checkoutForm)">
+    <div class="form-group">
+      <label for="name">Full Name</label>
+      <input id="name" name="name" ngModel required />
+    </div>
 
-  <label>Card Number</label>
-  <input [(ngModel)]="cardNumber" name="cardNumber" required />
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input id="email" name="email" ngModel type="email" required />
+    </div>
 
-  <button type="submit">Place Order</button>
-</form>
+    <div class="form-group">
+      <label for="address">Shipping Address</label>
+      <textarea id="address" name="address" ngModel required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="payment">Payment Method</label>
+      <select id="payment" name="payment" ngModel required>
+        <option value="">Select...</option>
+        <option value="Credit Card">Credit Card</option>
+        <option value="PayPal">PayPal</option>
+      </select>
+    </div>
+
+    <button type="submit" class="checkout-btn">Place Order</button>
+  </form>
+</section>

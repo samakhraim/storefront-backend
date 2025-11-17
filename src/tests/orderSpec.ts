@@ -1,51 +1,64 @@
-import { OrderStore } from '../models/order'
+import supertest from 'supertest'
+import app from '../server'
+import jwt from 'jsonwebtoken'
 import { UserStore } from '../models/user'
+import client from '../database'
 
-const orderStore = new OrderStore()
-const userStore = new UserStore()
+const request = supertest(app)
+const store = new UserStore()
+let token: string
+let userId: number
+let orderId: number
 
-describe('Order Model', () => {
-  let userId: number
-  let orderId: number
-
+describe('Order Endpoints', () => {
   beforeAll(async () => {
-    // Create a test user so we can attach an order to it
-    const user = await userStore.create({
-      first_name: 'TestUser',
-      last_name: 'ForOrder',
-      password: 'test123'
+    const conn = await client.connect()
+    await conn.query('TRUNCATE order_products, orders, products, users RESTART IDENTITY CASCADE')
+    conn.release()
+
+    const uniqueEmail = `orders_${Date.now()}@example.com`
+    const user = await store.create({
+      first_name: 'OrderUser',
+      last_name: 'Test',
+      email: uniqueEmail,
+      password: '123'
     })
-    userId = user.id as number
+    userId = user.id!
+    token = jwt.sign({ user }, process.env.TOKEN_SECRET!)
   })
 
-  it('should create a new order', async () => {
-    const result = await orderStore.create({
-      user_id: userId,
-      status: 'active'
-    })
-    orderId = result.id as number
-    expect(result.status).toEqual('active')
-    expect(result.user_id).toEqual(userId)
+  it('POST /orders should create an order', async () => {
+    const res = await request
+      .post('/orders')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ user_id: userId, status: 'active' })
+    expect(res.status).toBe(200)
+    orderId = res.body.id
   })
 
-  it('should return a list of orders', async () => {
-    const result = await orderStore.index()
-    expect(result.length).toBeGreaterThan(0)
+  it('GET /orders should list all orders', async () => {
+    const res = await request.get('/orders').set('Authorization', `Bearer ${token}`)
+    expect(res.status).toBe(200)
+    expect(res.body.length).toBeGreaterThan(0)
   })
 
-  it('should return the correct order by id', async () => {
-    const result = await orderStore.show(orderId.toString())
-    expect(result.id).toEqual(orderId)
-    expect(result.user_id).toEqual(userId)
+  it('GET /orders/:id should return one order', async () => {
+    const res = await request.get(`/orders/${orderId}`).set('Authorization', `Bearer ${token}`)
+    expect(res.status).toBe(200)
+    expect(res.body.id).toBe(orderId)
   })
 
-  it('should update an order status', async () => {
-    const result = await orderStore.update(orderId.toString(), 'complete')
-    expect(result.status).toEqual('complete')
+  it('PUT /orders/:id should update order status', async () => {
+    const res = await request
+      .put(`/orders/${orderId}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({ status: 'complete' })
+    expect(res.status).toBe(200)
+    expect(res.body.status).toBe('complete')
   })
 
-  it('should delete the order', async () => {
-    const result = await orderStore.delete(orderId.toString())
-    expect(result.id).toEqual(orderId)
+  it('DELETE /orders/:id should delete an order', async () => {
+    const res = await request.delete(`/orders/${orderId}`).set('Authorization', `Bearer ${token}`)
+    expect(res.status).toBe(200)
   })
 })

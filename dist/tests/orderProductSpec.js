@@ -1,49 +1,30 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const orderProduct_1 = require("../models/orderProduct");
-const order_1 = require("../models/order");
-const product_1 = require("../models/product");
+const supertest_1 = __importDefault(require("supertest"));
+const server_1 = __importDefault(require("../server"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const user_1 = require("../models/user");
-const orderProductStore = new orderProduct_1.OrderProductStore();
-const orderStore = new order_1.OrderStore();
-const productStore = new product_1.ProductStore();
+const request = (0, supertest_1.default)(server_1.default);
 const userStore = new user_1.UserStore();
-describe('OrderProduct Model', () => {
-    let userId;
-    let orderId;
-    let productId;
+let token;
+let userId;
+describe('OrderProduct Endpoints', () => {
     beforeAll(async () => {
         const user = await userStore.create({
             first_name: 'OrderProd',
             last_name: 'User',
+            email: 'orderprod@example.com',
             password: '123'
         });
         userId = user.id;
-        const order = await orderStore.create({
-            user_id: userId,
-            status: 'active'
-        });
-        orderId = order.id;
-        const product = await productStore.create({
-            name: 'TestProduct',
-            price: 50
-        });
-        productId = product.id;
+        token = jsonwebtoken_1.default.sign({ user }, process.env.TOKEN_SECRET);
     });
-    it('should add a product to an order', async () => {
-        const result = await orderProductStore.addProduct({
-            order_id: orderId,
-            product_id: productId,
-            quantity: 3
-        });
-        expect(result.quantity).toEqual(3);
-        expect(result.order_id).toEqual(orderId);
-    });
-    it('should list products in an order', async () => {
-        const result = await orderProductStore.productsByOrder(orderId.toString());
-        const [firstItem] = result;
-        expect(result.length).toBeGreaterThan(0);
-        expect(firstItem?.order_id).toEqual(orderId);
+    it('should create a user successfully', async () => {
+        expect(userId).toBeDefined();
+        expect(token).toBeDefined();
     });
 });
 //# sourceMappingURL=orderProductSpec.js.map

@@ -12,11 +12,12 @@ const store = new user_1.UserStore();
 let token;
 let userId;
 let orderId;
-describe('Order Endpoints', () => {
+describe('Order Product Endpoints', () => {
     beforeAll(async () => {
         const user = await store.create({
             first_name: 'OrderTester',
             last_name: 'User',
+            email: 'order@test.com',
             password: '123'
         });
         userId = user.id;
@@ -26,7 +27,19 @@ describe('Order Endpoints', () => {
         const res = await request
             .post('/orders')
             .set('Authorization', `Bearer ${token}`)
-            .send({ user_id: userId, status: 'active' });
+            .send({
+            user_id: userId,
+            status: 'active',
+            full_name: 'John Doe',
+            email: 'john@example.com',
+            phone: '5551234',
+            shipping_address: '123 Test St',
+            city: 'Testville',
+            country: 'Testland',
+            postal_code: '12345',
+            payment_method: 'Credit Card',
+            total_price: 199.99
+        });
         expect(res.status).toBe(200);
         orderId = res.body.id;
         expect(orderId).toBeDefined();

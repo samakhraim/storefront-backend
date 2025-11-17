@@ -1,52 +1,46 @@
+/* Section styling */
 .product-section {
-  max-width: 1200px;
-  margin: 0 auto;
+  padding: 2rem 1rem;
+  background-color: #f4f6f8;
   text-align: center;
+  min-height: calc(100vh - 120px);
 }
 
 .section-title {
-  font-size: 1.8rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #222;
   margin-bottom: 2rem;
-  color: #212529;
-  font-weight: 600;
 }
 
 /* Grid layout */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
   justify-content: center;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-/* Individual product card */
+/* Product cards */
 .product-card {
   background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
-/* Image */
-.product-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-/* Product info */
-.product-details {
-  padding: 1rem;
-}
-
+/* Product details */
 .product-name {
   font-size: 1.2rem;
   font-weight: 600;
@@ -55,32 +49,39 @@
 }
 
 .product-description {
-  font-size: 0.9rem;
-  color: #666;
-  height: 50px;
-  overflow: hidden;
+  font-size: 0.95rem;
+  color: #555;
   margin-bottom: 0.8rem;
+  min-height: 40px;
 }
 
 .product-price {
+  font-size: 1.1rem;
+  font-weight: 700;
   color: #28a745;
-  font-weight: 600;
-  font-size: 1rem;
   margin-bottom: 1rem;
 }
 
-/* Button */
+/* Add to cart button */
 .add-btn {
   background-color: #007bff;
-  color: white;
+  color: #fff;
   border: none;
-  border-radius: 6px;
-  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  padding: 0.7rem 1.2rem;
   font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background 0.3s ease;
 }
 
 .add-btn:hover {
   background-color: #0056b3;
+}
+
+/* Error message */
+.error-message {
+  color: #d9534f;
+  font-weight: 500;
+  margin-bottom: 1rem;
 }

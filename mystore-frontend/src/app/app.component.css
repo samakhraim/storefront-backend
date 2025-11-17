@@ -1,34 +1,32 @@
-/* Full-page layout */
+/* Make the whole page use flex column layout */
 :host {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-/* Make navbar stick to top, full width */
+/* Navbar always at the top */
 app-navbar {
-  width: 100%;
+  flex-shrink: 0;
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 100;
 }
 
-/* Main content fills the space between navbar and footer */
+/* Main content takes all available vertical space */
 .content {
-  flex: 1;
+  flex-grow: 1;
   padding: 2rem;
-  background-color: #f4f6f8;
+  background-color: #f8f9fa;
 }
 
-/* Footer stays at bottom and full width */
+/* Footer sticks at the bottom */
 .footer {
-  width: 100%;
-  background: linear-gradient(90deg, #1a1d1f, #2b3035);
-  color: #e9ecef;
+  flex-shrink: 0;
+  background-color: #212529;
+  color: #fff;
   text-align: center;
   padding: 1rem;
   font-size: 0.9rem;
-  font-weight: 400;
   letter-spacing: 0.3px;
-  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15);
 }

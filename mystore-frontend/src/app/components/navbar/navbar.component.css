@@ -1,18 +1,21 @@
+/* === Navbar container === */
 .navbar {
-  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: linear-gradient(90deg, #212529, #343a40);
   padding: 1rem 2rem;
-  background: linear-gradient(90deg, #1a1d1f, #2b3035);
-  color: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-/* Logo */
+/* === Logo === */
 .logo {
   font-size: 1.4rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #ffc107;
   text-decoration: none;
   display: flex;
@@ -21,13 +24,13 @@
 }
 
 .logo span {
-  color: #f8f9fa;
+  color: white;
 }
 
-/* Links */
+/* === Nav Links === */
 .navbar-links {
   display: flex;
-  gap: 2rem;
+  gap: 1.8rem;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -37,27 +40,31 @@
   color: #f8f9fa;
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.3s ease, transform 0.2s ease;
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
 }
 
+/* Hover & Active states */
 .navbar-links li a:hover,
 .navbar-links li a.active {
   color: #ffc107;
   transform: translateY(-1px);
 }
 
+/* === Cart counter === */
 .cart-count {
   font-weight: 600;
   color: #ffc107;
 }
 
-/* Responsive layout */
+/* === Responsive === */
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column;
     align-items: flex-start;
   }
-
   .navbar-links {
     flex-direction: column;
     gap: 0.8rem;

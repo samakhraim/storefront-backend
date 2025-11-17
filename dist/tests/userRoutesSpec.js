@@ -15,6 +15,7 @@ describe('User Endpoints', () => {
             .send({
             first_name: 'Sam',
             last_name: 'Tester',
+            email: 'sam@test.com',
             password: '123'
         });
         expect(res.status).toBe(200);
@@ -27,7 +28,7 @@ describe('User Endpoints', () => {
         const res = await request
             .post('/users/authenticate')
             .send({
-            first_name: 'Sam',
+            email: 'sam@test.com',
             password: '123'
         });
         expect(res.status).toBe(200);
@@ -54,6 +55,7 @@ describe('User Endpoints', () => {
             .send({
             first_name: 'SamUpdated',
             last_name: 'Tester',
+            email: 'samupdated@test.com',
             password: '456'
         });
         expect(res.status).toBe(200);

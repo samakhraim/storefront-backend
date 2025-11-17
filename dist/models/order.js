@@ -7,59 +7,49 @@ exports.OrderStore = void 0;
 const database_1 = __importDefault(require("../database"));
 class OrderStore {
     async index() {
-        try {
-            const conn = await database_1.default.connect();
-            const result = await conn.query('SELECT * FROM orders');
-            conn.release();
-            return result.rows;
-        }
-        catch (err) {
-            throw new Error(`Cannot get orders: ${err}`);
-        }
+        const conn = await database_1.default.connect();
+        const result = await conn.query('SELECT * FROM orders ORDER BY id ASC');
+        conn.release();
+        return result.rows;
     }
     async show(id) {
-        try {
-            const conn = await database_1.default.connect();
-            const result = await conn.query('SELECT * FROM orders WHERE id=($1)', [id]);
-            conn.release();
-            return result.rows[0];
-        }
-        catch (err) {
-            throw new Error(`Cannot find order ${id}: ${err}`);
-        }
+        const conn = await database_1.default.connect();
+        const result = await conn.query('SELECT * FROM orders WHERE id=$1', [id]);
+        conn.release();
+        return result.rows[0];
     }
     async create(o) {
-        try {
-            const conn = await database_1.default.connect();
-            const result = await conn.query('INSERT INTO orders (user_id, status) VALUES ($1, $2) RETURNING *', [o.user_id, o.status]);
-            conn.release();
-            return result.rows[0];
-        }
-        catch (err) {
-            throw new Error(`Cannot create order: ${err}`);
-        }
+        const conn = await database_1.default.connect();
+        const result = await conn.query(`INSERT INTO orders 
+      (user_id, status, total_price, full_name, email, phone, shipping_address, city, country, postal_code, payment_method)
+      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
+      RETURNING *`, [
+            o.user_id,
+            o.status || 'pending',
+            o.total_price || 0,
+            o.full_name,
+            o.email,
+            o.phone,
+            o.shipping_address,
+            o.city,
+            o.country,
+            o.postal_code,
+            o.payment_method
+        ]);
+        conn.release();
+        return result.rows[0];
     }
     async update(id, status) {
-        try {
-            const conn = await database_1.default.connect();
-            const result = await conn.query('UPDATE orders SET status=$1 WHERE id=$2 RETURNING *', [status, id]);
-            conn.release();
-            return result.rows[0];
-        }
-        catch (err) {
-            throw new Error(`Cannot update order ${id}: ${err}`);
-        }
+        const conn = await database_1.default.connect();
+        const result = await conn.query('UPDATE orders SET status=$1 WHERE id=$2 RETURNING *', [status, id]);
+        conn.release();
+        return result.rows[0];
     }
     async delete(id) {
-        try {
-            const conn = await database_1.default.connect();
-            const result = await conn.query('DELETE FROM orders WHERE id=$1 RETURNING *', [id]);
-            conn.release();
-            return result.rows[0];
-        }
-        catch (err) {
-            throw new Error(`Cannot delete order ${id}: ${err}`);
-        }
+        const conn = await database_1.default.connect();
+        const result = await conn.query('DELETE FROM orders WHERE id=$1 RETURNING *', [id]);
+        conn.release();
+        return result.rows[0];
     }
 }
 exports.OrderStore = OrderStore;
