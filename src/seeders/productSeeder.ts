@@ -16,61 +16,61 @@ const products = [
     name: 'Book',
     description: 'A fascinating novel for all readers.',
     price: 15,
-    image_url: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=600'
+    image_url: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=800&q=80'
   },
   {
     name: 'Phone',
     description: 'The latest smartphone with top specs.',
     price: 999,
-    image_url: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600'
+    image_url: 'https://images.unsplash.com/photo-1510557880182-3f8c5f1f13d7?auto=format&fit=crop&w=800&q=80'
   },
   {
     name: 'Laptop',
     description: 'High-performance laptop for professionals.',
     price: 1999,
-    image_url: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600'
+    image_url: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80'
   },
   {
     name: 'Smartwatch',
     description: 'Track your fitness and get notifications.',
     price: 299,
-    image_url: 'https://images.unsplash.com/photo-1519744346363-66e00c9c57a9?w=600'
+    image_url: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80'
   },
   {
     name: 'Camera',
     description: 'Capture every moment in stunning detail.',
     price: 850,
-    image_url: 'https://images.unsplash.com/photo-1519183071298-a2962e402c4d?w=600'
+    image_url: 'https://images.unsplash.com/photo-1519183071298-a2962e402c4d?auto=format&fit=crop&w=800&q=80'
   },
   {
     name: 'Tablet',
     description: 'Perfect for reading, work, and entertainment.',
     price: 450,
-    image_url: 'https://images.unsplash.com/photo-1587825140708-6b38da97517a?w=600'
+    image_url: 'https://images.unsplash.com/photo-1587825140708-6b38da97517a?auto=format&fit=crop&w=800&q=80'
   },
   {
     name: 'Headphones',
     description: 'Noise-cancelling and immersive sound quality.',
     price: 120,
-    image_url: 'https://images.unsplash.com/photo-1580894732444-8ecded7900b1?w=600'
+    image_url: 'https://images.unsplash.com/photo-1518449037995-63e13bdd9b89?auto=format&fit=crop&w=800&q=80'
   },
   {
     name: 'Keyboard',
     description: 'Mechanical keyboard with RGB backlighting.',
     price: 180,
-    image_url: 'https://images.unsplash.com/photo-1585079542156-2755d9c8a096?w=600'
+    image_url: 'https://images.unsplash.com/photo-1581349481221-1c929f0a1c88?auto=format&fit=crop&w=800&q=80'
   },
   {
     name: 'Monitor',
     description: '27-inch HD display with vivid colors.',
     price: 600,
-    image_url: 'https://images.unsplash.com/photo-1587202372775-98927d51b47e?w=600'
+    image_url: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80'
   },
   {
     name: 'Gaming Chair',
     description: 'Ergonomic comfort for long gaming sessions.',
     price: 400,
-    image_url: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600'
+    image_url: 'https://images.unsplash.com/photo-1616627987097-3d5eaf8a2b95?auto=format&fit=crop&w=800&q=80'
   }
 ];
 

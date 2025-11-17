@@ -9,6 +9,16 @@
   <!-- Product list -->
   <div class="product-grid">
     <div class="product-card" *ngFor="let product of products">
+      <!-- Product image -->
+      <div class="image-wrapper">
+        <img
+          [src]="product.image_url || 'https://via.placeholder.com/300x200?text=No+Image'"
+          [alt]="product.name"
+          class="product-image"
+        />
+      </div>
+
+      <!-- Product details -->
       <div class="product-details">
         <h3 class="product-name">{{ product.name }}</h3>
 
