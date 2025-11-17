@@ -1,38 +1,30 @@
-import express, { Application, Request, Response } from "express";
-import cors from "cors";
-import bodyParser from "body-parser";
-import productRoutes from "./handlers/products";
+import express from 'express'
+import bodyParser from 'body-parser'
+import cors from 'cors'
+import productRoutes from './handlers/products'
+import usersRoutes from './handlers/users'
+import ordersRoutes from './handlers/orders'
+import orderProductRoutes from './handlers/orderProducts'
 
-const app: Application = express();
-const port = 3000;
+const app: express.Application = express()
+const address = 'http://localhost:3000'
 
-/**
- * ✅ 1. Enable CORS globally
- * Express 5 automatically handles OPTIONS pre-flights for any route
- * when `app.use(cors())` is applied before your routes.
- */
-app.use(
-  cors({
-    origin: "http://localhost:4200", // your Angular app
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+app.use(cors())
+app.use(bodyParser.json())
 
-// ✅ 2. Usual middleware
-app.use(bodyParser.json());
+// ✅ register all routes
+productRoutes(app)
+usersRoutes(app)
+ordersRoutes(app)
+orderProductRoutes(app)
 
-// ✅ 3. Register API routes
-productRoutes(app);
+// root route (for sanity check)
+app.get('/', (_req, res) => {
+  res.send('✅ Storefront API is running!')
+})
 
-// ✅ 4. Health-check route
-app.get("/", (_req: Request, res: Response) => {
-  res.send("Server running...");
-});
+app.listen(3000, function () {
+  console.log(`✅ Server running on ${address}`)
+})
 
-// ✅ 5. Start server
-app.listen(port, () => {
-  console.log(`✅ Server running on http://localhost:${port}`);
-});
-
-export default app;
+export default app

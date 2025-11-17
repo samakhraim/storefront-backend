@@ -1,9 +1,23 @@
 <nav class="navbar">
-  <a routerLink="/" class="logo">🛍️ MyStore</a>
+  <div class="navbar-left">
+    <a routerLink="/" class="logo"> <span>MyStore</span></a>
+  </div>
 
-  <ul class="nav-links">
-    <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Products</a></li>
-    <li><a routerLink="/cart" routerLinkActive="active">Cart ({{ cartCount }})</a></li>
-    <li><a routerLink="/checkout" routerLinkActive="active">Checkout</a></li>
+  <ul class="navbar-links">
+    <li>
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        Products
+      </a>
+    </li>
+    <li>
+      <a routerLink="/cart" routerLinkActive="active">
+         Cart <span class="cart-count">({{ cartCount }})</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/checkout" routerLinkActive="active">
+        Checkout
+      </a>
+    </li>
   </ul>
 </nav>

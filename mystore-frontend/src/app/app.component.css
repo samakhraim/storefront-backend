@@ -1,0 +1,34 @@
+/* Full-page layout */
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Make navbar stick to top, full width */
+app-navbar {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Main content fills the space between navbar and footer */
+.content {
+  flex: 1;
+  padding: 2rem;
+  background-color: #f4f6f8;
+}
+
+/* Footer stays at bottom and full width */
+.footer {
+  width: 100%;
+  background: linear-gradient(90deg, #1a1d1f, #2b3035);
+  color: #e9ecef;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15);
+}

@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { CartService } from '../../services/cart.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css']
 })
@@ -12,17 +15,11 @@ export class CheckoutComponent {
   address = '';
   cardNumber = '';
 
-  constructor(private cartService: CartService, private router: Router) {}
-
-  onSubmit(): void {
-    if (!this.name || !this.address || !this.cardNumber) {
-      alert('Please fill in all fields.');
-      return;
-    }
-
-    this.cartService.clearCart();
-    this.router.navigate(['/confirmation'], {
-      queryParams: { name: this.name }
+  onSubmit() {
+    console.log('Order submitted:', {
+      name: this.name,
+      address: this.address,
+      cardNumber: this.cardNumber
     });
   }
 }

@@ -1,66 +1,86 @@
-.product-list-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.5rem;
-  padding: 2rem;
+.product-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
 }
 
+.section-title {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  color: #212529;
+  font-weight: 600;
+}
+
+/* Grid layout */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+/* Individual product card */
 .product-card {
   background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
-  text-align: center;
-  transition: transform 0.2s ease-in-out;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .product-card:hover {
-  transform: scale(1.03);
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 }
 
+/* Image */
 .product-image {
   width: 100%;
   height: 200px;
-  object-fit: contain;
-  border-bottom: 1px solid #eee;
+  object-fit: cover;
+}
+
+/* Product info */
+.product-details {
+  padding: 1rem;
+}
+
+.product-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.product-description {
+  font-size: 0.9rem;
+  color: #666;
+  height: 50px;
+  overflow: hidden;
+  margin-bottom: 0.8rem;
+}
+
+.product-price {
+  color: #28a745;
+  font-weight: 600;
+  font-size: 1rem;
   margin-bottom: 1rem;
 }
 
-.no-image {
-  width: 100%;
-  height: 200px;
-  background-color: #f1f1f1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #777;
-}
-
-.price {
-  font-size: 1.2rem;
-  color: #007bff;
-  font-weight: bold;
-  margin-top: 0.5rem;
-}
-
-button {
+/* Button */
+.add-btn {
   background-color: #007bff;
-  border: none;
   color: white;
-  padding: 0.6rem 1.2rem;
+  border: none;
   border-radius: 6px;
-  cursor: pointer;
+  padding: 0.6rem 1rem;
   font-size: 1rem;
-  margin-top: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
-button:hover {
+.add-btn:hover {
   background-color: #0056b3;
-}
-
-.loading,
-.error {
-  text-align: center;
-  font-size: 1.2rem;
-  margin-top: 2rem;
 }

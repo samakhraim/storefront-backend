@@ -6,6 +6,8 @@ import { UserStore } from '../models/user'
 const request = supertest(app)
 const store = new UserStore()
 let token: string
+let userId: number
+let orderId: number
 
 describe('Order Endpoints', () => {
   beforeAll(async () => {
@@ -14,6 +16,7 @@ describe('Order Endpoints', () => {
       last_name: 'User',
       password: '123'
     })
+    userId = user.id!
     token = jwt.sign({ user }, process.env.TOKEN_SECRET!)
   })
 
@@ -21,35 +24,40 @@ describe('Order Endpoints', () => {
     const res = await request
       .post('/orders')
       .set('Authorization', `Bearer ${token}`)
-      .send({ user_id: 1, status: 'active' })
+      .send({ user_id: userId, status: 'active' })
     expect(res.status).toBe(200)
+    orderId = res.body.id
+    expect(orderId).toBeDefined()
   })
 
-  it('GET /orders should list orders', async () => {
+  it('GET /orders should list all orders', async () => {
     const res = await request
       .get('/orders')
       .set('Authorization', `Bearer ${token}`)
     expect(res.status).toBe(200)
+    expect(res.body.length).toBeGreaterThan(0)
   })
 
-  it('GET /orders/:id should return an order', async () => {
+  it('GET /orders/:id should return one order', async () => {
     const res = await request
-      .get('/orders/1')
+      .get(`/orders/${orderId}`)
       .set('Authorization', `Bearer ${token}`)
     expect(res.status).toBe(200)
+    expect(res.body.id).toBe(orderId)
   })
 
-  it('PUT /orders/:id should update an order', async () => {
+  it('PUT /orders/:id should update order status', async () => {
     const res = await request
-      .put('/orders/1')
+      .put(`/orders/${orderId}`)
       .set('Authorization', `Bearer ${token}`)
       .send({ status: 'complete' })
     expect(res.status).toBe(200)
+    expect(res.body.status).toBe('complete')
   })
 
   it('DELETE /orders/:id should delete an order', async () => {
     const res = await request
-      .delete('/orders/1')
+      .delete(`/orders/${orderId}`)
       .set('Authorization', `Bearer ${token}`)
     expect(res.status).toBe(200)
   })

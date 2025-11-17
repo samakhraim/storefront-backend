@@ -1,9 +1,22 @@
-<div class="product-grid">
-  <div *ngFor="let product of products" class="product-card">
-    <a [routerLink]="['/products', product.id]" class="product-link">
-      <h3>{{ product.name }}</h3>
-      <p>\${{ product.price }}</p>
-    </a>
-    <button (click)="addToCart(product)">Add to Cart</button>
+<section class="product-section">
+  <h2 class="section-title">Featured Products</h2>
+
+  <div class="product-grid">
+    <div class="product-card" *ngFor="let product of products">
+      <img
+        [src]="product.image || 'https://via.placeholder.com/250x200?text=No+Image'"
+        alt="{{ product.name }}"
+        class="product-image"
+      />
+
+      <div class="product-details">
+        <h3 class="product-name">{{ product.name }}</h3>
+        <p class="product-description">
+          {{ product.description || 'No description available.' }}
+        </p>
+        <p class="product-price">\${{ product.price }}</p>
+        <button class="add-btn" (click)="addToCart(product)">Add to Cart</button>
+      </div>
+    </div>
   </div>
-</div>
+</section>
