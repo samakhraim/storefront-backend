@@ -1,31 +1,59 @@
 <section class="checkout-section">
-  <h2>Checkout</h2>
+  <div class="checkout-container">
+    <h2 class="checkout-title">🧾 Checkout</h2>
+    <p class="checkout-subtitle">Complete your order by filling in your details below.</p>
 
-  <form #checkoutForm="ngForm" (ngSubmit)="onSubmit(checkoutForm)">
-    <div class="form-group">
-      <label for="name">Full Name</label>
-      <input id="name" name="name" ngModel required />
-    </div>
+    <form #checkoutForm="ngForm" (ngSubmit)="onSubmit(checkoutForm)" class="checkout-form">
 
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input id="email" name="email" ngModel type="email" required />
-    </div>
+      <!-- Full Name -->
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input
+          id="name"
+          name="name"
+          ngModel
+          required
+          placeholder="John Doe"
+        />
+      </div>
 
-    <div class="form-group">
-      <label for="address">Shipping Address</label>
-      <textarea id="address" name="address" ngModel required></textarea>
-    </div>
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input
+          id="email"
+          name="email"
+          ngModel
+          type="email"
+          required
+          placeholder="yourname@email.com"
+        />
+      </div>
 
-    <div class="form-group">
-      <label for="payment">Payment Method</label>
-      <select id="payment" name="payment" ngModel required>
-        <option value="">Select...</option>
-        <option value="Credit Card">Credit Card</option>
-        <option value="PayPal">PayPal</option>
-      </select>
-    </div>
+      <!-- Address -->
+      <div class="form-group">
+        <label for="address">Shipping Address</label>
+        <textarea
+          id="address"
+          name="address"
+          ngModel
+          required
+          placeholder="123 Main Street, Apartment 4B, New York, NY"
+        ></textarea>
+      </div>
 
-    <button type="submit" class="checkout-btn">Place Order</button>
-  </form>
+      <!-- Payment -->
+      <div class="form-group">
+        <label for="payment">Payment Method</label>
+        <select id="payment" name="payment" ngModel required>
+          <option value="">Select a payment method...</option>
+          <option value="Credit Card">💳 Credit Card</option>
+          <option value="PayPal">🅿️ PayPal</option>
+        </select>
+      </div>
+
+      <!-- Place Order Button -->
+      <button type="submit" class="checkout-btn">✔ Place Order</button>
+    </form>
+  </div>
 </section>

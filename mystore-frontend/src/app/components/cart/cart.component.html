@@ -8,28 +8,41 @@
       <a routerLink="/" class="browse-btn">Browse Products</a>
     </div>
 
-    <!-- Cart with items -->
+    <!-- Cart With Items -->
     <div *ngIf="items.length > 0" class="cart-content">
+
+      <!-- Loop each item -->
       <div class="cart-item" *ngFor="let item of items">
         <div class="cart-info">
-          <img src="assets/images/default-product.jpg" alt="Product" class="cart-image" />
+
+          <!-- Product Image (same logic as product list) -->
+          <img
+            [src]="item.image_url || 'https://via.placeholder.com/300x200?text=No+Image'"
+            [alt]="item.name"
+            class="cart-image"
+          />
+
           <div class="cart-text">
             <h3>{{ item.name }}</h3>
             <p>${{ item.price }}</p>
           </div>
         </div>
+
         <button class="remove-btn" (click)="removeItem(item.id)">Remove</button>
       </div>
 
+      <!-- Total -->
       <div class="cart-total">
         <h3>Total:</h3>
         <span>${{ total }}</span>
       </div>
 
+      <!-- Buttons -->
       <div class="cart-actions">
         <button class="clear-btn" (click)="clearCart()">🗑️ Clear Cart</button>
         <a routerLink="/checkout" class="checkout-btn">Proceed to Checkout →</a>
       </div>
+
     </div>
   </div>
 </div>

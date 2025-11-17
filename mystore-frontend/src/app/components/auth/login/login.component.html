@@ -1,0 +1,12 @@
+<section class="auth-section">
+  <h2>Login</h2>
+
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    
+    <input type="email" name="email" ngModel required placeholder="Email" />
+
+    <input type="password" name="password" ngModel required placeholder="Password" />
+
+    <button>Login</button>
+  </form>
+</section>

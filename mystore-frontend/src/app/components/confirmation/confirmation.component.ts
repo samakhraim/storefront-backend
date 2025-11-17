@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './confirmation.component.html',
-  styleUrls: ['./confirmation.component.css']
+  styleUrls: ['./confirmation.component.css'],
 })
 export class ConfirmationComponent implements OnInit {
   order: any;

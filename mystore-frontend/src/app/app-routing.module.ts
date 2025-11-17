@@ -4,11 +4,20 @@ import { ProductDetailComponent } from './components/product-detail/product-deta
 import { CartComponent } from './components/cart/cart.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { SignupComponent } from './components/auth/signup/signup.component';
+
+
+
+
+
 
 export const routes: Routes = [
   { path: '', component: ProductListComponent },
   { path: 'products/:id', component: ProductDetailComponent },
   { path: 'cart', component: CartComponent },
   { path: 'checkout', component: CheckoutComponent },
-  { path: 'confirmation', component: ConfirmationComponent }
+  { path: 'confirmation', component: ConfirmationComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent }
 ];

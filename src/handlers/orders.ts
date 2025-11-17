@@ -1,60 +1,46 @@
-import express, { Request, Response } from 'express'
-import { OrderStore } from '../models/order'
-import { verifyAuthToken } from '../middleware/auth'
+import express, { Request, Response } from 'express';
+import { OrderStore } from '../models/order';
 
-const store = new OrderStore()
-
-const index = async (_req: Request, res: Response) => {
-  try {
-    const orders = await store.index()
-    res.json(orders)
-  } catch (err) {
-    res.status(400).json({ error: (err as Error).message })
-  }
-}
-
-const show = async (req: Request, res: Response) => {
-  try {
-    const order = await store.show(req.params.id!)
-    res.json(order)
-  } catch (err) {
-    res.status(400).json({ error: (err as Error).message })
-  }
-}
+const store = new OrderStore();
 
 const create = async (req: Request, res: Response) => {
   try {
-    const newOrder = await store.create(req.body)
-    res.json(newOrder)
-  } catch (err) {
-    res.status(400).json({ error: (err as Error).message })
-  }
-}
+    const {
+      full_name,
+      email,
+      phone,
+      shipping_address,
+      city,
+      country,
+      postal_code,
+      payment_method,
+      total_price,
+      products
+    } = req.body;
 
-const update = async (req: Request, res: Response) => {
-  try {
-    const updatedOrder = await store.update(req.params.id!, req.body.status)
-    res.json(updatedOrder)
-  } catch (err) {
-    res.status(400).json({ error: (err as Error).message })
-  }
-}
+    const order_id = await store.create({
+      full_name,
+      email,
+      phone,
+      shipping_address,
+      city,
+      country,
+      postal_code,
+      payment_method,
+      total_price,
+      products
+    });
 
-const destroy = async (req: Request, res: Response) => {
-  try {
-    const deleted = await store.delete(req.params.id!)
-    res.json(deleted)
+    res.json({ success: true, order_id });
+
   } catch (err) {
-    res.status(400).json({ error: (err as Error).message })
+    console.error('❌ Order creation failed:', err);
+    res.status(500).json({ error: 'Order creation failed' });
   }
-}
+};
 
 const ordersRoutes = (app: express.Application) => {
-  app.get('/orders', verifyAuthToken, index)
-  app.get('/orders/:id', verifyAuthToken, show)
-  app.post('/orders', verifyAuthToken, create)
-  app.put('/orders/:id', verifyAuthToken, update)
-  app.delete('/orders/:id', verifyAuthToken, destroy)
-}
+  app.post('/orders', create);
+};
 
-export default ordersRoutes
+export default ordersRoutes;

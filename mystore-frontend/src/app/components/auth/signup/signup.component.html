@@ -1,0 +1,14 @@
+<p>signup works!</p>
+<section class="auth-section">
+  <h2>Sign Up</h2>
+
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+
+    <input name="first_name" ngModel required placeholder="First Name" />
+    <input name="last_name" ngModel required placeholder="Last Name" />
+    <input type="email" name="email" ngModel required placeholder="Email" />
+    <input type="password" name="password" ngModel required placeholder="Password" />
+
+    <button>Create Account</button>
+  </form>
+</section>

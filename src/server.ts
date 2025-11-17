@@ -5,6 +5,9 @@ import productRoutes from './handlers/products'
 import usersRoutes from './handlers/users'
 import ordersRoutes from './handlers/orders'
 import orderProductRoutes from './handlers/orderProducts'
+import authRoutes from './handlers/auth';
+
+
 
 const app: express.Application = express()
 const address = 'http://localhost:3000'
@@ -17,7 +20,7 @@ productRoutes(app)
 usersRoutes(app)
 ordersRoutes(app)
 orderProductRoutes(app)
-
+authRoutes(app)
 // root route (for sanity check)
 app.get('/', (_req, res) => {
   res.send('✅ Storefront API is running!')
