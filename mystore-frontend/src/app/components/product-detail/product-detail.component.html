@@ -1,9 +1,47 @@
-<div *ngIf="!product">
+<!-- Loading state -->
+<div *ngIf="!product" class="loading-container">
+  <div class="loader"></div>
   <p>Loading product details...</p>
 </div>
 
-<div *ngIf="product">
-  <h2>{{ product.name }}</h2>
-  <p>Price: \${{ product.price }}</p>
-  <p>{{ product.description }}</p>
+<!-- Product Detail -->
+<div *ngIf="product" class="detail-container">
+
+  <!-- Left: Product Image -->
+  <div class="image-section">
+    <img
+      [src]="product.image_url || 'https://via.placeholder.com/400x300?text=No+Image'"
+      [alt]="product.name"
+      class="product-image"
+    />
+  </div>
+
+  <!-- Right: Product Info -->
+  <div class="info-section">
+
+    <!-- Title + Price Row -->
+    <div class="title-row">
+      <h2 class="product-title">{{ product.name }}</h2>
+      <p class="product-price">\${{ product.price }}</p>
+    </div>
+
+    <p class="product-description">
+      {{ product.description || 'No description available for this product.' }}
+    </p>
+
+    <!-- Centered Add to Cart -->
+    <div class="add-btn-container">
+      <button class="add-btn" (click)="addToCart()">
+        Add to Cart
+      </button>
+    </div>
+
+    <!-- Back to Products -->
+    <div class="footer-actions">
+      <a routerLink="/products" class="back-link">
+        ← Back to Products
+      </a>
+    </div>
+
+  </div>
 </div>

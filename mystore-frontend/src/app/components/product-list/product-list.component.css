@@ -112,3 +112,12 @@
   font-weight: 500;
   margin-bottom: 1rem;
 }
+.click-area {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.click-area:hover .product-name {
+  color: #007bff;
+}
