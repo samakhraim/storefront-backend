@@ -1,3 +1,9 @@
 <app-navbar *ngIf="showNavbar()"></app-navbar>
 
-<router-outlet></router-outlet>
+<div class="content">
+  <router-outlet></router-outlet>
+</div>
+
+<footer class="footer" *ngIf="showNavbar()">
+  © 2025 MyStore — All Rights Reserved.
+</footer>

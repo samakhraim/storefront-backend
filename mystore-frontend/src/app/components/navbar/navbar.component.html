@@ -11,6 +11,7 @@
   </div>
 
   <ul class="navbar-links" [class.open]="isMenuOpen">
+
     <li>
       <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         Products
@@ -28,5 +29,17 @@
         Checkout
       </a>
     </li>
+
+  
+
+    <li *ngIf="isLoggedIn">
+      <a (click)="logout()" class="logout-btn">Sign Out</a>
+    </li>
+
+    <!-- Show login link when NOT logged in -->
+    <li *ngIf="!isLoggedIn">
+      <a routerLink="/login" routerLinkActive="active">Login</a>
+    </li>
+
   </ul>
 </nav>

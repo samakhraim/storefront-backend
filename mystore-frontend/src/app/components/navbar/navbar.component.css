@@ -127,3 +127,17 @@
     pointer-events: auto;
   }
 }
+.welcome {
+  color: #007bff;
+  font-weight: 600;
+}
+
+.logout {
+  cursor: pointer;
+  color: #dc3545 !important;
+  font-weight: 600;
+}
+
+.logout:hover {
+  color: #b02a37 !important;
+}
