@@ -4,6 +4,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CartService } from '../../services/cart.service';
 
 @Component({
+  
   selector: 'app-navbar',
   standalone: true,
   imports: [CommonModule, RouterLink, RouterLinkActive],
@@ -12,6 +13,7 @@ import { CartService } from '../../services/cart.service';
 })
 export class NavbarComponent implements OnInit {
   cartCount = 0;
+isMenuOpen = false;
 
   constructor(private cartService: CartService) {}
 

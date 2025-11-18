@@ -1,19 +1,28 @@
 <nav class="navbar">
   <div class="navbar-left">
-    <a routerLink="/" class="logo"> <span>MyStore</span></a>
+    <a routerLink="/" class="logo">
+      <span class="logo-icon">🛍️</span> MyStore
+    </a>
   </div>
 
-  <ul class="navbar-links">
+  <!-- Mobile Hamburger -->
+  <div class="hamburger" (click)="isMenuOpen = !isMenuOpen">
+    <span></span><span></span><span></span>
+  </div>
+
+  <ul class="navbar-links" [class.open]="isMenuOpen">
     <li>
       <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         Products
       </a>
     </li>
+
     <li>
       <a routerLink="/cart" routerLinkActive="active">
-         Cart <span class="cart-count">({{ cartCount }})</span>
+        Cart <span class="cart-count">({{ cartCount }})</span>
       </a>
     </li>
+
     <li>
       <a routerLink="/checkout" routerLinkActive="active">
         Checkout
