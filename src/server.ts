@@ -1,33 +1,35 @@
-import express from 'express'
-import bodyParser from 'body-parser'
-import cors from 'cors'
-import productRoutes from './handlers/products'
-import usersRoutes from './handlers/users'
-import ordersRoutes from './handlers/orders'
-import orderProductRoutes from './handlers/orderProducts'
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+
 import authRoutes from './handlers/auth';
+import productRoutes from './handlers/products';
+import usersRoutes from './handlers/users';
+import ordersRoutes from './handlers/orders';
+import orderProductRoutes from './handlers/orderProducts';
 
+const app = express();
+app.use(cors());
+app.use(bodyParser.json());
 
+// Auth routes FIRST
+app.use('/auth', authRoutes);
 
-const app: express.Application = express()
-const address = 'http://localhost:3000'
+// Other routes
+productRoutes(app);
+usersRoutes(app);
+ordersRoutes(app);
+orderProductRoutes(app);
 
-app.use(cors())
-app.use(bodyParser.json())
+app.get('/', (req, res) => {
+  res.send('API running');
+});
 
-// ✅ register all routes
-productRoutes(app)
-usersRoutes(app)
-ordersRoutes(app)
-orderProductRoutes(app) 
-app.use('/auth', authRoutes)
-// root route (for sanity check)
-app.get('/', (_req, res) => {
-  res.send('✅ Storefront API is running!')
-})
+// IMPORTANT: Only start the server when not testing
+if (process.env.ENV !== 'test') {
+  app.listen(3000, () => {
+    console.log('🚀 Server running on http://localhost:3000');
+  });
+}
 
-app.listen(3000, function () {
-  console.log(`✅ Server running on ${address}`)
-})
-
-export default app
+export default app;   // ✔ FIX: Allows supertest/Jest to import it

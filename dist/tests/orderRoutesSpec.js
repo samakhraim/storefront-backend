@@ -7,17 +7,21 @@ const supertest_1 = __importDefault(require("supertest"));
 const server_1 = __importDefault(require("../server"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const user_1 = require("../models/user");
+const database_1 = __importDefault(require("../database"));
 const request = (0, supertest_1.default)(server_1.default);
-const store = new user_1.UserStore();
+const userStore = new user_1.UserStore();
 let token;
 let userId;
 let orderId;
 describe('Order Product Endpoints', () => {
     beforeAll(async () => {
-        const user = await store.create({
+        const conn = await database_1.default.connect();
+        await conn.query('TRUNCATE order_products, orders, products, users RESTART IDENTITY CASCADE');
+        conn.release();
+        const user = await userStore.create({
             first_name: 'OrderTester',
             last_name: 'User',
-            email: 'order@test.com',
+            email: `order_${Date.now()}@test.com`,
             password: '123'
         });
         userId = user.id;
@@ -29,32 +33,28 @@ describe('Order Product Endpoints', () => {
             .set('Authorization', `Bearer ${token}`)
             .send({
             user_id: userId,
-            status: 'active',
+            status: 'pending',
+            total_price: 250,
             full_name: 'John Doe',
             email: 'john@example.com',
-            phone: '5551234',
+            phone: '1234567890',
             shipping_address: '123 Test St',
-            city: 'Testville',
-            country: 'Testland',
-            postal_code: '12345',
-            payment_method: 'Credit Card',
-            total_price: 199.99
+            city: 'Amman',
+            country: 'Jordan',
+            postal_code: '11118',
+            payment_method: 'Credit Card'
         });
         expect(res.status).toBe(200);
         orderId = res.body.id;
         expect(orderId).toBeDefined();
     });
     it('GET /orders should list all orders', async () => {
-        const res = await request
-            .get('/orders')
-            .set('Authorization', `Bearer ${token}`);
+        const res = await request.get('/orders').set('Authorization', `Bearer ${token}`);
         expect(res.status).toBe(200);
         expect(res.body.length).toBeGreaterThan(0);
     });
     it('GET /orders/:id should return one order', async () => {
-        const res = await request
-            .get(`/orders/${orderId}`)
-            .set('Authorization', `Bearer ${token}`);
+        const res = await request.get(`/orders/${orderId}`).set('Authorization', `Bearer ${token}`);
         expect(res.status).toBe(200);
         expect(res.body.id).toBe(orderId);
     });
@@ -67,9 +67,7 @@ describe('Order Product Endpoints', () => {
         expect(res.body.status).toBe('complete');
     });
     it('DELETE /orders/:id should delete an order', async () => {
-        const res = await request
-            .delete(`/orders/${orderId}`)
-            .set('Authorization', `Bearer ${token}`);
+        const res = await request.delete(`/orders/${orderId}`).set('Authorization', `Bearer ${token}`);
         expect(res.status).toBe(200);
     });
 });

@@ -12,14 +12,22 @@ import { SignupComponent } from './components/auth/signup/signup.component';
 import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  // Default route = Product List
+  { path: '', redirectTo: 'products', pathMatch: 'full' },
 
+  // Authentication
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
 
-  { path: 'products', component: ProductListComponent, canActivate: [authGuard] },
-  { path: 'products/:id', component: ProductDetailComponent, canActivate: [authGuard] },
-  { path: 'cart', component: CartComponent, canActivate: [authGuard] },
+  // Public Routes (NO login required)
+  { path: 'products', component: ProductListComponent },
+  { path: 'products/:id', component: ProductDetailComponent },
+  { path: 'cart', component: CartComponent },
+
+  // Protected Routes (user must be logged in)
   { path: 'checkout', component: CheckoutComponent, canActivate: [authGuard] },
   { path: 'confirmation', component: ConfirmationComponent, canActivate: [authGuard] },
+
+  // Wildcard fallback
+  { path: '**', redirectTo: 'products' }
 ];

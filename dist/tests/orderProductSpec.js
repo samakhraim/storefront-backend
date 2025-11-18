@@ -7,16 +7,22 @@ const supertest_1 = __importDefault(require("supertest"));
 const server_1 = __importDefault(require("../server"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const user_1 = require("../models/user");
+const database_1 = __importDefault(require("../database"));
 const request = (0, supertest_1.default)(server_1.default);
-const userStore = new user_1.UserStore();
+const store = new user_1.UserStore();
 let token;
 let userId;
+let orderId;
 describe('OrderProduct Endpoints', () => {
     beforeAll(async () => {
-        const user = await userStore.create({
+        const conn = await database_1.default.connect();
+        await conn.query('TRUNCATE order_products, orders, products, users RESTART IDENTITY CASCADE');
+        conn.release();
+        const uniqueEmail = `orderprod_${Date.now()}@example.com`;
+        const user = await store.create({
             first_name: 'OrderProd',
             last_name: 'User',
-            email: 'orderprod@example.com',
+            email: uniqueEmail,
             password: '123'
         });
         userId = user.id;
