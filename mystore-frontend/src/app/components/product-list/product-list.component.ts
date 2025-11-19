@@ -1,18 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
 import { Product } from '../../models/product.model';
 
+import { ProductCardComponent } from '../product-card/product-card.component'; // <-- Child Component
+
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [
+    CommonModule,
+    RouterLink,
+    ProductCardComponent // <-- Import child
+  ],
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
+
   products: Product[] = [];
   errorMessage = '';
 
@@ -31,6 +39,7 @@ export class ProductListComponent implements OnInit {
     });
   }
 
+  // Parent receives event from child component
   addToCart(product: Product): void {
     this.cartService.addToCart(product);
   }
